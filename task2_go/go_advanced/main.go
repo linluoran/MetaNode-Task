@@ -2,222 +2,72 @@ package main
 
 import (
 	"fmt"
-	"math"
 	"sync"
-	"sync/atomic"
 	"time"
 )
 
-var wg = sync.WaitGroup{}
-
-func addNum(sNum *int) int {
-	return *sNum + 10
+// SafeCounter 是一个线程安全的计数器
+type SafeCounter struct {
+	mu    sync.Mutex // 互斥锁，用于保护 count 的并发访问
+	count int        // 实际的计数值
 }
 
-func printOdd() {
-	defer wg.Done()
-	for i := 1; i < 10; i += 2 {
-		fmt.Println(i)
-	}
+// Increment 安全地增加计数器（线程安全）
+func (c *SafeCounter) Increment() {
+	c.mu.Lock()         // 加锁，防止其他 goroutine 同时修改
+	defer c.mu.Unlock() // 函数返回时自动解锁
+	c.count++           // 增加计数
 }
 
-func printEven() {
-	defer wg.Done()
-	for i := 2; i < 10; i += 2 {
-		fmt.Println(i)
-	}
+// GetCount 安全地获取当前计数值（线程安全）
+func (c *SafeCounter) GetCount() int {
+	c.mu.Lock()         // 加锁，防止其他 goroutine 同时读取
+	defer c.mu.Unlock() // 函数返回时自动解锁
+	return c.count      // 返回当前计数值
 }
 
-type gaTask struct {
-	name string
-	job  func()
+// UnsafeCounter 是一个非线程安全的计数器
+type UnsafeCounter struct {
+	count int // 计数值，没有锁保护
 }
 
-func schedule(tasks []gaTask) {
-	wg.Add(len(tasks))
-	for _, task := range tasks {
-		go func(t gaTask) { // 使用参数传递避免闭包捕获问题
-			defer wg.Done()
-			startTime := time.Now()
-			t.job()
-			fmt.Printf("%s took %v\n", t.name, time.Since(startTime))
-		}(task)
-	}
+// Increment 非安全地增加计数器（并发不安全）
+func (c *UnsafeCounter) Increment() {
+	c.count += 1 // 直接修改 count，可能导致数据竞争（race condition）
 }
 
-type Shape interface {
-	Area() float64
-	Perimeter() float64
-}
-
-type Rectangle struct {
-	width, height float64
-}
-
-func (r Rectangle) Area() float64 {
-	res := r.width * r.height
-	fmt.Println("方形面积为: ", res)
-	return res
-}
-
-func (r Rectangle) Perimeter() float64 {
-	res := 2 * (r.width + r.height)
-	fmt.Println("方形周长为: ", res)
-	return res
-}
-
-type Circle struct {
-	radius float64
-}
-
-func (c Circle) Area() float64 {
-	res := math.Pi * c.radius * c.radius
-	fmt.Println("圆面积为: ", res)
-	return res
-}
-
-func (c Circle) Perimeter() float64 {
-	res := math.Pi * 2 * c.radius
-	fmt.Println("圆周长为: ", res)
-	return res
-}
-
-// 使用Shape接口的函数
-func printShapeInfo(s Shape) {
-	s.Area()
-	s.Perimeter()
-}
-
-type person struct {
-	name string
-	age  int
-}
-
-type employee struct {
-	person
-	employeeID int
-}
-
-func (e employee) printInfo() {
-	fmt.Println("员工的姓名: ", e.name)
-	fmt.Println("员工的年纪: ", e.age)
-	fmt.Printf("员工的ID: %09d\n", e.employeeID)
-}
-
-type numPro struct {
-	num int
-	mu  sync.Mutex
-}
-
-func (n *numPro) addNum(num int) {
-	n.mu.Lock()
-	defer n.mu.Unlock()
-	n.num += num
+// GetCount 非安全地获取当前计数值（并发不安全）
+func (c *UnsafeCounter) GetCount() int {
+	return c.count // 直接返回 count，可能读取到中间状态
 }
 
 func main() {
+	counter := UnsafeCounter{} // 创建一个非线程安全的计数器
 
-	// go进阶 1
-	goAdvanced1 := 1
-	fmt.Println(addNum(&goAdvanced1))
-
-	// go进阶 2
-	wg.Add(2)
-	go printOdd()
-	go printEven()
-	wg.Wait()
-
-	tasks := []gaTask{
-		{"任务1", func() { time.Sleep(1 * time.Second) }},
-		{"任务2", func() { time.Sleep(2 * time.Second) }},
-		{"任务3", func() { time.Sleep(3 * time.Second) }},
-		{"任务4", func() { time.Sleep(4 * time.Second) }},
-	}
-	schedule(tasks)
-	wg.Wait()
-
-	// go进阶 3 - 使用Shape接口
-	rect := Rectangle{9.5, 11.5}
-	printShapeInfo(rect)
-
-	circle := Circle{3.5}
-	printShapeInfo(circle)
-
-	// go进阶 4
-	lilei := employee{person{"lilei", 20}, 1502320}
-	lilei.printInfo()
-
-	// go进阶 5
-	workCh := make(chan int)
-
-	wg.Add(1)
-	go func() {
-		defer wg.Done()
-		defer close(workCh)
-		for i := 1; i < 11; i++ {
-			workCh <- i
-			fmt.Println("写入通道: ", i)
-		}
-	}()
-
-	wg.Add(1)
-	go func() {
-		defer wg.Done()
-		for res := range workCh {
-			fmt.Println("取出通道: ", res)
-		}
-	}()
-	wg.Wait()
-
-	// go进阶5
-	cacheCh := make(chan int, 60)
-
-	wg.Add(1)
-	go func() {
-		defer wg.Done()
-		defer close(cacheCh)
-		for i := 100; i < 200; i++ {
-			cacheCh <- i
-		}
-		fmt.Println("数据写入完毕.")
-	}()
-
-	wg.Add(1)
-	go func() {
-		defer wg.Done()
-		for res := range cacheCh {
-			fmt.Println("从缓存通道中拿到: ", res)
-		}
-	}()
-	wg.Wait()
-
-	// go进阶 6
-	wg.Add(10)
-	countNum := &numPro{}
-
-	for i := 0; i < 10; i++ {
+	// 启动 1000 个 goroutine 并发增加计数器
+	for i := 0; i < 1000; i++ {
 		go func() {
-			defer wg.Done()
-			for j := 0; j < 1000; j++ {
-				countNum.addNum(1)
+			for j := 0; j < 100; j++ {
+				counter.Increment() // 每个 goroutine 增加 100 次
 			}
 		}()
 	}
-	wg.Wait()
-	fmt.Println(countNum.num)
 
-	// go进阶 7
-	var atomicNum int64
+	// 等待 1 秒，确保所有 goroutine 完成（实际生产环境应该用 sync.WaitGroup）
+	time.Sleep(time.Second)
 
-	wg.Add(10)
-	for i := 0; i < 10; i++ {
+	// 输出最终计数（由于并发不安全，结果可能小于 100000）
+	fmt.Printf("Final count: %d (expected: 100000)\n", counter.GetCount())
+
+	// 对比 SafeCounter 的正确行为
+	safeCounter := SafeCounter{}
+	for i := 0; i < 1000; i++ {
 		go func() {
-			defer wg.Done()
-			for j := 0; j < 1000; j++ {
-				atomic.AddInt64(&atomicNum, 1)
+			for j := 0; j < 100; j++ {
+				safeCounter.Increment() // 线程安全地增加计数
 			}
 		}()
 	}
-	wg.Wait()
-	fmt.Println(atomicNum)
+	time.Sleep(time.Second)
+	fmt.Printf("Safe final count: %d (correct)\n", safeCounter.GetCount())
 }

@@ -1,0 +1,11 @@
+# config/config.yaml
+mysql:
+  username: "sc"
+  password: "sc123456"
+  host: "42.194.226.141"
+  port: "3306"
+  dbname: "gorm"
+  timeout: "10s"
+  max_open_conns: 100    # 最大连接数
+  max_idle_conns: 10     # 空闲连接数
+  conn_max_lifetime: 30m  # 连接最大存活时间
