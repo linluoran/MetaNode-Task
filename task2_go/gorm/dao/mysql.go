@@ -57,22 +57,9 @@ func init() {
 	//}
 
 	var users []User
-	DB.Find(&users).Unscoped().Delete(&User{})
-	users = []User{
-		{ID: 1, Name: "李元芳", Age: 32, Email: PtrString("lyf@yf.com"), Gender: true},
-		{ID: 2, Name: "张武", Age: 18, Email: PtrString("zhangwu@lly.cn"), Gender: true},
-		{ID: 3, Name: "极枫", Age: 23, Email: PtrString("ff@yahoo.com"), Gender: true},
-		{ID: 4, Name: "刘大", Age: 54, Email: PtrString("Liuda@qq.com"), Gender: true},
-		{ID: 5, Name: "李武", Age: 23, Email: PtrString("liwu@lly.cn"), Gender: true},
-		{ID: 6, Name: "李琦", Age: 14, Email: PtrString("liqi@lly.cn"), Gender: false},
-		{ID: 7, Name: "晓梅", Age: 25, Email: PtrString("xiaomeo@sl.com"), Gender: false},
-		{ID: 8, Name: "如燕", Age: 26, Email: PtrString("ruyan@yf.com"), Gender: false},
-		{ID: 9, Name: "魔灵", Age: 21, Email: PtrString("moling@sl.com"), Gender: true},
-	}
-	DB.Create(&users)
 
-}
+	// 查询姓李的
+	DB.Where("name LIKE ?%", "李").Find(&users)
+	fmt.Println(users)
 
-func PtrString(s string) *string {
-	return &s
 }
