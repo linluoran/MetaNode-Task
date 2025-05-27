@@ -51,15 +51,9 @@ func init() {
 		log.Fatalf("MySQL init failed: %v", err)
 	}
 
-	//// 自动迁移 不是每次都需要迁移
+	// 自动迁移 不是每次都需要迁移
 	//if err := AutoMigrate(); err != nil {
 	//	log.Fatalf("Auto migrate failed: %v", err)
 	//}
-
-	var users []User
-
-	// 查询姓李的
-	DB.Where("name LIKE ?%", "李").Find(&users)
-	fmt.Println(users)
 
 }
