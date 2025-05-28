@@ -2,6 +2,7 @@ package dao
 
 import (
 	"fmt"
+	"time"
 )
 
 type Tag struct {
@@ -16,9 +17,19 @@ type Article struct {
 	Tags  []Tag `gorm:"many2many:article_tags;"`
 }
 
+type ArticleTag struct {
+	ArticleID uint      `gorm:"primary_key"`
+	TagID     uint      `gorm:"primary_key"`
+	CreatedAt time.Time `json:"created_at"`
+}
+
 // AutoMigrate 自动迁移表结构
 func AutoMigrate() error {
-	if err := DB.AutoMigrate(&Tag{}, &Article{}); err != nil {
+	if err := DB.AutoMigrate(
+		&Tag{},
+		&Article{},
+		&ArticleTag{},
+	); err != nil {
 		return fmt.Errorf("auto migrate failed: %w", err)
 	}
 	return nil

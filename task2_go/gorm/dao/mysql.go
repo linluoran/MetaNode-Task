@@ -51,11 +51,14 @@ func init() {
 		log.Fatalf("MySQL init failed: %v", err)
 	}
 
-	// 自动迁移 不是每次都需要迁移
-	if err := AutoMigrate(); err != nil {
-		log.Fatalf("Auto migrate failed: %v", err)
+	setErr := DB.SetupJoinTable(&Article{}, "Tags", &ArticleTag{})
+	if setErr != nil {
+		log.Fatalf("Failed to setup join table: %v", setErr)
 	}
 
-	// 添加用户
+	// 自动迁移 不是每次都需要迁移
+	//if err := AutoMigrate(); err != nil {
+	//	log.Fatalf("Auto migrate failed: %v", err)
+	//}
 
 }
