@@ -8,6 +8,7 @@ type User struct {
 	ID       uint     `gorm:"primaryKey"`
 	Name     string   `gorm:"size:32"`
 	Age      int      `gorm:"default:0"`
+	Gender   bool     `gorm:"default:false"`
 	UserInfo UserInfo // 通过 UserInfo 可以拿到用户详细信息
 }
 
