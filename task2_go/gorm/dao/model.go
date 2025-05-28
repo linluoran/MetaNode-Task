@@ -4,24 +4,21 @@ import (
 	"fmt"
 )
 
-type User struct {
-	ID       uint     `gorm:"primaryKey"`
-	Name     string   `gorm:"size:32"`
-	Age      int      `gorm:"default:0"`
-	Gender   bool     `gorm:"default:false"`
-	UserInfo UserInfo // 通过 UserInfo 可以拿到用户详细信息
+type Tag struct {
+	ID   uint `gorm:"primary_key"`
+	Name string
+	// article_tags 指定第三张表的名字
+	Articles []Article `gorm:"many2many:article_tags;"`
 }
-
-type UserInfo struct {
-	ID     uint   `gorm:"primaryKey"`
-	Addr   string `gorm:"size:255"`
-	Like   string `gorm:"size:255"`
-	UserID uint   `gorm:"foreignKey:UserID"`
+type Article struct {
+	ID    uint `gorm:"primary_key"`
+	Title string
+	Tags  []Tag `gorm:"many2many:article_tags;"`
 }
 
 // AutoMigrate 自动迁移表结构
 func AutoMigrate() error {
-	if err := DB.AutoMigrate(&User{}, &UserInfo{}); err != nil {
+	if err := DB.AutoMigrate(&Tag{}, &Article{}); err != nil {
 		return fmt.Errorf("auto migrate failed: %w", err)
 	}
 	return nil

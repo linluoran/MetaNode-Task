@@ -56,4 +56,6 @@ func init() {
 		log.Fatalf("Auto migrate failed: %v", err)
 	}
 
+	// 添加用户
+
 }
