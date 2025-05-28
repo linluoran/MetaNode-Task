@@ -1,40 +1,42 @@
 package dao
 
 import (
+	"database/sql/driver"
+	"encoding/json"
+	"errors"
 	"fmt"
-	"gorm.io/gorm"
-	"time"
 )
 
-type Tag struct {
-	ID   uint `gorm:"primary_key"`
+type Info struct {
+	Status string `json:"status"`
+	Addr   string `json:"addr"`
+	Age    int    `json:"age"`
+}
+
+type AuthModel struct {
+	ID   uint64 `gorm:"primary_key"`
 	Name string
-	// article_tags 指定第三张表的名字
-	Articles []Article `gorm:"many2many:article_tags;"`
-}
-type Article struct {
-	ID    uint `gorm:"primary_key"`
-	Title string
-	Tags  []Tag `gorm:"many2many:article_tags;"`
+	Info Info `gorm:"type:string;"`
 }
 
-type ArticleTag struct {
-	ArticleID uint      `gorm:"primary_key"`
-	TagID     uint      `gorm:"primary_key"`
-	CreatedAt time.Time `json:"created_at"`
+// Scan 从数据库读出来
+func (i *Info) Scan(value any) error {
+	bytes, ok := value.([]byte)
+	if !ok {
+		return errors.New(fmt.Sprintf("Failed to umarshal JSON value: %s", value))
+	}
+	err := json.Unmarshal(bytes, i)
+	return err
 }
 
-func (at *ArticleTag) BeforeCreate(db *gorm.DB) error {
-	at.CreatedAt = time.Now()
-	return nil
+func (i Info) Value() (driver.Value, error) {
+	return json.Marshal(i)
 }
 
 // AutoMigrate 自动迁移表结构
 func AutoMigrate() error {
 	if err := DB.AutoMigrate(
-		&Tag{},
-		&Article{},
-		&ArticleTag{},
+		&AuthModel{},
 	); err != nil {
 		return fmt.Errorf("auto migrate failed: %w", err)
 	}
