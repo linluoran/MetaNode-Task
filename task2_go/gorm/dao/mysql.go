@@ -52,8 +52,8 @@ func init() {
 	}
 
 	// 自动迁移 不是每次都需要迁移
-	//if err := AutoMigrate(); err != nil {
-	//	log.Fatalf("Auto migrate failed: %v", err)
-	//}
+	if err := AutoMigrate(); err != nil {
+		log.Fatalf("Auto migrate failed: %v", err)
+	}
 
 }
