@@ -56,9 +56,21 @@ func init() {
 		log.Fatalf("Failed to setup join table: %v", setErr)
 	}
 
+	setErr1 := DB.SetupJoinTable(&Tag{}, "Articles", &ArticleTag{})
+	if setErr1 != nil {
+		log.Fatalf("Failed to setup join table: %v", setErr1)
+	}
 	// 自动迁移 不是每次都需要迁移
 	//if err := AutoMigrate(); err != nil {
 	//	log.Fatalf("Auto migrate failed: %v", err)
 	//}
+
+	DB.Create(&Article{
+		Title: "Golang入门",
+		Tags: []Tag{
+			{Name: "技术爱好"},
+			{Name: "golang"},
+		},
+	})
 
 }

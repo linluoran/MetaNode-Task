@@ -2,6 +2,7 @@ package dao
 
 import (
 	"fmt"
+	"gorm.io/gorm"
 	"time"
 )
 
@@ -21,6 +22,11 @@ type ArticleTag struct {
 	ArticleID uint      `gorm:"primary_key"`
 	TagID     uint      `gorm:"primary_key"`
 	CreatedAt time.Time `json:"created_at"`
+}
+
+func (at *ArticleTag) BeforeCreate(db *gorm.DB) error {
+	at.CreatedAt = time.Now()
+	return nil
 }
 
 // AutoMigrate 自动迁移表结构
