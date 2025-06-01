@@ -12,11 +12,11 @@ import (
 var DB *gorm.DB
 
 func InitMySQL(cfg *MySQLConfig) error {
-	dns := fmt.Sprintf(
+	dsn := fmt.Sprintf(
 		"%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local&timeout=%s",
 		cfg.UserName, cfg.Password, cfg.Host, cfg.Port, cfg.DBName, cfg.Timeout)
 
-	db, err := gorm.Open(mysql.Open(dns), &gorm.Config{
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
 		SkipDefaultTransaction: true, // 禁用事务
 		Logger:                 logger.Default.LogMode(logger.Info),
 	})
@@ -56,7 +56,4 @@ func init() {
 		log.Fatalf("Auto migrate failed: %v", err)
 	}
 
-	var auth AuthModel
-	DB.Take(&auth, "id = ?", 1)
-	fmt.Println(auth)
 }
