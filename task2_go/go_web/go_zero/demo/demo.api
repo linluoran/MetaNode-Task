@@ -1,0 +1,57 @@
+// 语法版本（固定为 v1）
+syntax = "v1"
+
+info (
+	title:   "learn go-zero"
+	desc:    "学无止境"
+	author:  "me"
+	email:   "shuangss@163.com"
+	version: "0.1.0"
+)
+
+// 请求体定义
+type Request {
+	// form 表示 form表单 or 查询参数
+	// 注意影响后续演示
+	userID int64 `form:"userID"`
+}
+
+// 响应体定义
+type Response {
+	// json 标签指定序列化时的字段名
+	Message string `json:"message"`
+}
+
+// 请求体定义
+type upRequest {
+	// form 表示 form表单 or 查询参数
+	// 注意影响后续演示path
+	userID   int64  `form:"userID"`
+	userName string `form:"userName"`
+}
+
+// 响应体定义
+type upResponse {
+	// json 标签指定序列化时的字段名
+	Flag bool
+}
+
+@server (
+	group:  "user" // 决定工程化拆分 模块文件夹名字
+	prefix: "demo/v1" // 决定路由的统一前缀
+)
+// 服务定义（服务名需用连字符连接）
+service demo-api {
+	// 接口文档注释（显示在 Swagger 文档）
+	@doc "演示模块：根据名称返回问候语"
+	// 指定路由处理函数（仅做路由转发，不处理业务）
+	@handler DemoHandler
+	// 定义 GET 路由：
+	//   - 使用 Request 结构体接收参数
+	//   - 返回 Response 结构体
+	get /get_user (Request) returns (Response)
+
+	@handler UPDemoHandler
+	post /update_user (upRequest) returns (upResponse)
+}
+

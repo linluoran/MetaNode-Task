@@ -1,0 +1,6 @@
+Name: demo-api
+Host: 0.0.0.0
+Port: 8888
+# 注意这里 MySQL 的名字和 internal/config/config.go 里配置的名称要一致
+MySQL:
+  DSN: sc:sc123456@tcp(42.194.226.141:3306)/gozero?charset=utf8mb4&parseTime=True&loc=Local&timeout=10s
