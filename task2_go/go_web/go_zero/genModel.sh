@@ -25,4 +25,5 @@ goctl model mysql datasource \
       -url="${username}:${passwd}@tcp(${host}:${port})/${dbname}" \
       -table="${tables}"  \
       -dir="${modeldir}" \
+      -cache=true \
       --style=goZero
