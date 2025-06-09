@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-package usercenter_rpc;
-option go_package="./usercenter_rpc";
+package protobuf;
+option go_package="./protobuf";
 
 message Request {
   string ping = 1;
