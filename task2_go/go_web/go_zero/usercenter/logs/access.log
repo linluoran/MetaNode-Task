@@ -1,0 +1,8 @@
+2025-06-09T15:10:14.663+08:00	 info 	SetUidToCtxMiddleware before	caller=middleware/globalmiddleware.go:21
+2025-06-09T15:10:14.663+08:00	 info 	缺少id.	caller=middleware/globalmiddleware.go:24
+2025-06-09T15:10:14.663+08:00	 info 	[HTTP]  200  -  GET  /back/v1/user/info - 127.0.0.1:59069 - PostmanRuntime-ApipostRuntime/1.1.0	duration=1.5ms	caller=handler/loghandler.go:147	trace=c32da9db49807152adbe0027f222432b	span=166ced609ba0fdeb
+2025-06-09T15:10:16.786+08:00	 info 	Got signal 2, shutting down...	caller=proc/shutdown.go:84
+2025-06-09T15:14:10.427+08:00	 info 	SetUidToCtxMiddleware before	caller=middleware/globalmiddleware.go:21
+2025-06-09T15:14:10.427+08:00	 info 	缺少id.	caller=middleware/globalmiddleware.go:24
+2025-06-09T15:14:10.427+08:00	 info 	[HTTP]  200  -  GET  /back/v1/user/info - 127.0.0.1:61799 - PostmanRuntime-ApipostRuntime/1.1.0	duration=0.9ms	caller=handler/loghandler.go:147	trace=092ed7b131604e611caebffa38cbdd8b	span=b29d9f82bfc16db4
+2025-06-09T15:16:33.759+08:00	 info 	Got signal 2, shutting down...	caller=proc/shutdown.go:84

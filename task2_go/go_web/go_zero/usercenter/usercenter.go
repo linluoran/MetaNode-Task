@@ -3,10 +3,11 @@ package main
 import (
 	"flag"
 	"fmt"
+	"usercenter/internal/middleware"
 
-	"go_zero/usercenter/internal/config"
-	"go_zero/usercenter/internal/handler"
-	"go_zero/usercenter/internal/svc"
+	"usercenter/internal/config"
+	"usercenter/internal/handler"
+	"usercenter/internal/svc"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/rest"
@@ -18,9 +19,10 @@ func main() {
 	flag.Parse()
 
 	var c config.Config
-	conf.MustLoad(*configFile, &c)
+	conf.MustLoad(*configFile, &c, conf.UseEnv())
 
 	server := rest.MustNewServer(c.RestConf)
+	server.Use(middleware.NewSetUidToCtxMiddleware().Handle)
 	defer server.Stop()
 
 	ctx := svc.NewServiceContext(c)

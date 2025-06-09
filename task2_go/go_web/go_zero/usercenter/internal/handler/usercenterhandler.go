@@ -4,9 +4,9 @@ import (
 	"net/http"
 
 	"github.com/zeromicro/go-zero/rest/httpx"
-	"go_zero/usercenter/internal/logic"
-	"go_zero/usercenter/internal/svc"
-	"go_zero/usercenter/internal/types"
+	"usercenter/internal/logic"
+	"usercenter/internal/svc"
+	"usercenter/internal/types"
 )
 
 func UsercenterHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {

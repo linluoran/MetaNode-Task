@@ -6,8 +6,8 @@ package handler
 import (
 	"net/http"
 
-	user "go_zero/usercenter/internal/handler/user"
-	"go_zero/usercenter/internal/svc"
+	user "usercenter/internal/handler/user"
+	"usercenter/internal/svc"
 
 	"github.com/zeromicro/go-zero/rest"
 )
@@ -15,12 +15,6 @@ import (
 func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
 		[]rest.Route{
-			{
-				// 新增用户
-				Method:  http.MethodPost,
-				Path:    "/create",
-				Handler: user.UserCreateHandler(serverCtx),
-			},
 			{
 				// 查询用户信息
 				Method:  http.MethodGet,
@@ -34,6 +28,21 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Handler: user.UserUpdateHandler(serverCtx),
 			},
 		},
+		rest.WithPrefix("/back/v1/user"),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.UserCreateMiddleware},
+			[]rest.Route{
+				{
+					// 新增用户
+					Method:  http.MethodPost,
+					Path:    "/create",
+					Handler: user.UserCreateHandler(serverCtx),
+				},
+			}...,
+		),
 		rest.WithPrefix("/back/v1/user"),
 	)
 }

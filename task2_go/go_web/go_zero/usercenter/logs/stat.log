@@ -1,0 +1,6 @@
+2025-06-09T15:15:06.658+08:00	 stat 	CPU: 0m, MEMORY: Alloc=0.9Mi, TotalAlloc=0.9Mi, Sys=8.5Mi, NumGC=0	caller=stat/usage.go:61
+2025-06-09T15:15:06.667+08:00	 stat 	(api) shedding_stat [1m], cpu: 0, total: 1, pass: 1, drop: 0	caller=load/sheddingstat.go:61
+2025-06-09T15:15:10.428+08:00	 stat 	(usercenter-api) - qps: 0.0/s, drops: 0, avg time: 0.0ms, med: 0.8ms, 90th: 0.8ms, 99th: 0.8ms, 99.9th: 0.8ms	caller=stat/metrics.go:210
+2025-06-09T15:16:06.656+08:00	 stat 	CPU: 0m, MEMORY: Alloc=0.9Mi, TotalAlloc=0.9Mi, Sys=8.5Mi, NumGC=0	caller=stat/usage.go:61
+2025-06-09T15:16:06.666+08:00	 stat 	(api) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2025-06-09T15:16:10.427+08:00	 stat 	(usercenter-api) - qps: 0.0/s, drops: 0, avg time: 0.0ms, med: 0.0ms, 90th: 0.0ms, 99th: 0.0ms, 99.9th: 0.0ms	caller=stat/metrics.go:210

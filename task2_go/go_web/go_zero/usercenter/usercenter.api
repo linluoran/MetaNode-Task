@@ -2,8 +2,7 @@ syntax = "v1"
 
 type (
 	UserInfoReq {
-		ID     int64  `form:"userId"`
-		Mobile string `form:"mobile"`
+		ID int64 `form:"userId"`
 	}
 	UserInfoResp {
 		Code    int64  `json:"code"`
@@ -42,10 +41,6 @@ type (
 	prefix: back/v1/user
 )
 service usercenter-api {
-	@doc "新增用户"
-	@handler UserCreateHandler
-	post /create (UserCreateReq) returns (UserCreateResp)
-
 	@doc "查询用户信息"
 	@handler UserInfoHandler
 	get /info (UserInfoReq) returns (UserInfoResp)
@@ -53,5 +48,16 @@ service usercenter-api {
 	@doc "修改用户信息"
 	@handler UserUpdateHandler
 	post /update (UserUpdateReq) returns (UserUpdateResp)
+}
+
+@server (
+	group:      user
+	prefix:     back/v1/user
+	middleware: UserCreateMiddleware
+)
+service usercenter-api {
+	@doc "新增用户"
+	@handler UserCreateHandler
+	post /create (UserCreateReq) returns (UserCreateResp)
 }
 

@@ -15,8 +15,7 @@ type UserCreateResp struct {
 }
 
 type UserInfoReq struct {
-	ID     int64  `form:"userId"`
-	Mobile string `form:"mobile"`
+	ID int64 `form:"userId"`
 }
 
 type UserInfoResp struct {

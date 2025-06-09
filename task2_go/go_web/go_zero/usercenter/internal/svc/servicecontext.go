@@ -2,19 +2,23 @@ package svc
 
 import (
 	"github.com/zeromicro/go-zero/core/stores/sqlx"
-	"go_zero/usercenter/internal/config"
-	"go_zero/usercenter/model"
+	"github.com/zeromicro/go-zero/rest"
+	"usercenter/internal/config"
+	"usercenter/internal/middleware"
+	"usercenter/model"
 )
 
 type ServiceContext struct {
-	Config        config.Config
-	UserModel     model.UserModel
-	UserDataModel model.UserDataModel
+	Config               config.Config
+	UserCreateMiddleware rest.Middleware
+	UserModel            model.UserModel
+	UserDataModel        model.UserDataModel
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
 	return &ServiceContext{
-		Config: c,
+		Config:               c,
+		UserCreateMiddleware: middleware.NewUserCreateMiddleware().Handle,
 		UserModel: model.NewUserModel(
 			sqlx.NewMysql(c.MySQL.DSN),
 			c.Cache,

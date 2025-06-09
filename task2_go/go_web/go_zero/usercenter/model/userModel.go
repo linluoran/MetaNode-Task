@@ -18,6 +18,8 @@ type (
 		// TransCtx 添加事务方法
 		TransCtx(ctx context.Context, fn func(context.Context, sqlx.Session) error) error
 		TransInsert(ctx context.Context, session sqlx.Session, data *User) (sql.Result, error)
+		TransUpdate(ctx context.Context, session sqlx.Session, data *User) error
+		TransDelete(ctx context.Context, session sqlx.Session, id int64) error
 	}
 
 	customUserModel struct {
@@ -39,12 +41,41 @@ func (m *customUserModel) TransCtx(ctx context.Context, fn func(context.Context,
 	})
 }
 
-// TransInsert 事务
-func (m *defaultUserModel) TransInsert(ctx context.Context, serssion sqlx.Session, data *User) (sql.Result, error) {
+// TransInsert Insert事务
+func (m *customUserModel) TransInsert(ctx context.Context, session sqlx.Session, data *User) (sql.Result, error) {
 	gozeroUserIdKey := fmt.Sprintf("%s%v", cacheGozeroUserIdPrefix, data.Id)
 	ret, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("insert into %s (%s) values (?, ?)", m.table, userRowsExpectAutoSet)
-		return serssion.ExecCtx(ctx, query, data.Nickname, data.Mobile)
+		if session != nil {
+			return session.ExecCtx(ctx, query, data.Nickname, data.Mobile)
+		}
+		return conn.ExecCtx(ctx, query, data.Nickname, data.Mobile)
 	}, gozeroUserIdKey)
 	return ret, err
+}
+
+// TransDelete Delete事务
+func (m *customUserModel) TransDelete(ctx context.Context, session sqlx.Session, id int64) error {
+	gozeroUserIdKey := fmt.Sprintf("%s%v", cacheGozeroUserIdPrefix, id)
+	_, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
+		query := fmt.Sprintf("delete from %s where `id` = ?", m.table)
+		if session != nil {
+			return session.ExecCtx(ctx, query, id)
+		}
+		return conn.ExecCtx(ctx, query, id)
+	}, gozeroUserIdKey)
+	return err
+}
+
+// TransUpdate 更新事务
+func (m *customUserModel) TransUpdate(ctx context.Context, session sqlx.Session, data *User) error {
+	gozeroUserIdKey := fmt.Sprintf("%s%v", cacheGozeroUserIdPrefix, data.Id)
+	_, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
+		query := fmt.Sprintf("update %s set %s where `id` = ?", m.table, userRowsWithPlaceHolder)
+		if session != nil {
+			return session.ExecCtx(ctx, query, data.Nickname, data.Mobile, data.Id)
+		}
+		return conn.ExecCtx(ctx, query, data.Nickname, data.Mobile, data.Id)
+	}, gozeroUserIdKey)
+	return err
 }

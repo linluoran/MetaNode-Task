@@ -4,9 +4,9 @@ import (
 	"net/http"
 
 	"github.com/zeromicro/go-zero/rest/httpx"
-	"go_zero/usercenter/internal/logic/user"
-	"go_zero/usercenter/internal/svc"
-	"go_zero/usercenter/internal/types"
+	"usercenter/internal/logic/user"
+	"usercenter/internal/svc"
+	"usercenter/internal/types"
 )
 
 // 查询用户信息
