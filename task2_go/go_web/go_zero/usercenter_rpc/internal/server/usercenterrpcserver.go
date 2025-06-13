@@ -23,7 +23,7 @@ func NewUsercenterRpcServer(svcCtx *svc.ServiceContext) *UsercenterRpcServer {
 	}
 }
 
-func (s *UsercenterRpcServer) Ping(ctx context.Context, in *usercenter_rpc.Request) (*usercenter_rpc.Response, error) {
-	l := logic.NewPingLogic(ctx, s.svcCtx)
-	return l.Ping(in)
+func (s *UsercenterRpcServer) GetUserInfo(ctx context.Context, in *usercenter_rpc.GetUserInfoReq) (*usercenter_rpc.GetUserInfoResp, error) {
+	l := logic.NewGetUserInfoLogic(ctx, s.svcCtx)
+	return l.GetUserInfo(in)
 }

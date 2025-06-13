@@ -2,6 +2,14 @@ Name: usercenter-api
 Host: 0.0.0.0
 Port: 8888
 
+# 增加ETCD 配置
+UserRpcConf:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    key: usercenterrpc.rpc
+
+
 # 日志配置
 Log:
   ServiceName: usercenter-api

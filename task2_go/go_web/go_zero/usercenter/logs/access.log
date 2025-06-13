@@ -6,3 +6,48 @@
 2025-06-09T15:14:10.427+08:00	 info 	缺少id.	caller=middleware/globalmiddleware.go:24
 2025-06-09T15:14:10.427+08:00	 info 	[HTTP]  200  -  GET  /back/v1/user/info - 127.0.0.1:61799 - PostmanRuntime-ApipostRuntime/1.1.0	duration=0.9ms	caller=handler/loghandler.go:147	trace=092ed7b131604e611caebffa38cbdd8b	span=b29d9f82bfc16db4
 2025-06-09T15:16:33.759+08:00	 info 	Got signal 2, shutting down...	caller=proc/shutdown.go:84
+2025-06-13T18:28:26.188+08:00	 info 	SetUidToCtxMiddleware before	caller=middleware/globalmiddleware.go:21
+2025-06-13T18:28:26.189+08:00	 info 	缺少id.	caller=middleware/globalmiddleware.go:24
+2025-06-13T18:28:26.189+08:00	 info 	[HTTP]  200  -  GET  /back/v1/user/info?id=1 - 127.0.0.1:51409 - PostmanRuntime-ApipostRuntime/1.1.0	duration=1.5ms	caller=handler/loghandler.go:147	trace=eeee6ae142c112c5ae42ac3f7c55e550	span=c2fcd44f531c2bdf
+2025-06-13T18:28:36.085+08:00	 info 	SetUidToCtxMiddleware before	caller=middleware/globalmiddleware.go:21
+2025-06-13T18:28:36.085+08:00	 info 	缺少id.	caller=middleware/globalmiddleware.go:24
+2025-06-13T18:28:36.085+08:00	 info 	[HTTP]  200  -  GET  /back/v1/user/info?id=1 - 127.0.0.1:51542 - PostmanRuntime-ApipostRuntime/1.1.0	duration=0.1ms	caller=handler/loghandler.go:147	trace=aa0dadd4de8a8aab7741df9256b2ba19	span=8d5b27c060fcfc36
+2025-06-13T18:29:11.982+08:00	 info 	SetUidToCtxMiddleware before	caller=middleware/globalmiddleware.go:21
+2025-06-13T18:29:11.982+08:00	 info 	缺少id.	caller=middleware/globalmiddleware.go:24
+2025-06-13T18:29:11.982+08:00	 info 	[HTTP]  200  -  GET  /back/v1/user/info?id=1 - 127.0.0.1:51827 - PostmanRuntime-ApipostRuntime/1.1.0	caller=handler/loghandler.go:147	trace=7d18d35df79c4ae503d63ccb9f17bcae	span=bd1c4385707579d1	duration=0.1ms
+2025-06-13T18:29:33.475+08:00	 info 	SetUidToCtxMiddleware before	caller=middleware/globalmiddleware.go:21
+2025-06-13T18:29:33.475+08:00	 info 	缺少id.	caller=middleware/globalmiddleware.go:24
+2025-06-13T18:29:33.475+08:00	 info 	[HTTP]  200  -  GET  /back/v1/user/info?userId=1 - 127.0.0.1:51929 - PostmanRuntime-ApipostRuntime/1.1.0	caller=handler/loghandler.go:147	trace=469b0d9920da21774ff04e3b246a6f26	span=da32ab9b6dd65b27	duration=0.1ms
+2025-06-13T18:29:42.211+08:00	 info 	SetUidToCtxMiddleware before	caller=middleware/globalmiddleware.go:21
+2025-06-13T18:29:42.211+08:00	 info 	缺少id.	caller=middleware/globalmiddleware.go:24
+2025-06-13T18:29:42.212+08:00	 info 	[HTTP]  200  -  GET  /back/v1/user/info?userId=1 - 127.0.0.1:51983 - PostmanRuntime-ApipostRuntime/1.1.0	span=5f89b82f5bf971ba	duration=0.1ms	caller=handler/loghandler.go:147	trace=20431a7f1c6b31a265d9edb0b6b003b3
+2025-06-13T18:29:43.899+08:00	 info 	SetUidToCtxMiddleware before	caller=middleware/globalmiddleware.go:21
+2025-06-13T18:29:43.899+08:00	 info 	缺少id.	caller=middleware/globalmiddleware.go:24
+2025-06-13T18:29:43.899+08:00	 info 	[HTTP]  200  -  GET  /back/v1/user/info?userId=1 - 127.0.0.1:51983 - PostmanRuntime-ApipostRuntime/1.1.0	caller=handler/loghandler.go:147	trace=f43afe170ca480fe2893f5706e6453bd	span=eeaef6367dcd95e4	duration=0.1ms
+2025-06-13T18:29:46.424+08:00	 info 	SetUidToCtxMiddleware before	caller=middleware/globalmiddleware.go:21
+2025-06-13T18:29:46.424+08:00	 info 	缺少id.	caller=middleware/globalmiddleware.go:24
+2025-06-13T18:29:46.424+08:00	 info 	[HTTP]  200  -  GET  /back/v1/user/info?userId=1 - 127.0.0.1:52005 - PostmanRuntime-ApipostRuntime/1.1.0	duration=0.1ms	caller=handler/loghandler.go:147	trace=b8f8b33dd80157e721d9a2ab4c30c729	span=8c61dfd16d3e956f
+2025-06-13T18:29:52.288+08:00	 info 	SetUidToCtxMiddleware before	caller=middleware/globalmiddleware.go:21
+2025-06-13T18:29:52.288+08:00	 info 	缺少id.	caller=middleware/globalmiddleware.go:24
+2025-06-13T18:29:52.288+08:00	 info 	[HTTP]  200  -  GET  /back/v1/user/info?userId=1 - 127.0.0.1:52048 - PostmanRuntime-ApipostRuntime/1.1.0	caller=handler/loghandler.go:147	trace=3c827baf966ed35e3cd00c268d369652	span=f82675d085d7eaf2	duration=0.1ms
+2025-06-13T18:30:00.382+08:00	 info 	SetUidToCtxMiddleware before	caller=middleware/globalmiddleware.go:21
+2025-06-13T18:30:00.382+08:00	 info 	缺少id.	caller=middleware/globalmiddleware.go:24
+2025-06-13T18:30:00.382+08:00	 info 	[HTTP]  200  -  GET  /back/v1/user/info?userId=1 - 127.0.0.1:52191 - PostmanRuntime-ApipostRuntime/1.1.0	trace=8336103f14bb6229a267e52451137585	span=4af9413adfe49cfa	duration=0.2ms	caller=handler/loghandler.go:147
+2025-06-13T18:30:14.216+08:00	 info 	Got signal 2, shutting down...	caller=proc/shutdown.go:84
+2025-06-13T18:30:20.568+08:00	 info 	SetUidToCtxMiddleware before	caller=middleware/globalmiddleware.go:21
+2025-06-13T18:30:20.568+08:00	 info 	缺少id.	caller=middleware/globalmiddleware.go:24
+2025-06-13T18:30:20.568+08:00	 info 	[HTTP]  200  -  GET  /back/v1/user/info?userId=1 - 127.0.0.1:52382 - PostmanRuntime-ApipostRuntime/1.1.0	duration=0.2ms	caller=handler/loghandler.go:147	trace=66fbf27a54d94966dbe37bb5f2274c03	span=174b5eda7ee99f2a
+2025-06-13T18:30:23.780+08:00	 info 	Got signal 2, shutting down...	caller=proc/shutdown.go:84
+2025-06-13T18:30:57.483+08:00	 info 	SetUidToCtxMiddleware before	caller=middleware/globalmiddleware.go:21
+2025-06-13T18:30:57.483+08:00	 info 	缺少id.	caller=middleware/globalmiddleware.go:24
+2025-06-13T18:30:57.483+08:00	 info 	[HTTP]  200  -  GET  /back/v1/user/info?userId=1 - 127.0.0.1:52663 - PostmanRuntime-ApipostRuntime/1.1.0	duration=0.3ms	caller=handler/loghandler.go:147	trace=b2b4863f3aab52e960dc5b7437676082	span=e4f46b5a28959224
+2025-06-13T18:30:58.527+08:00	 info 	SetUidToCtxMiddleware before	caller=middleware/globalmiddleware.go:21
+2025-06-13T18:30:58.527+08:00	 info 	缺少id.	caller=middleware/globalmiddleware.go:24
+2025-06-13T18:30:58.528+08:00	 info 	[HTTP]  200  -  GET  /back/v1/user/info?userId=1 - 127.0.0.1:52663 - PostmanRuntime-ApipostRuntime/1.1.0	caller=handler/loghandler.go:147	trace=aec9b50f91559ee52d0cb1180e18647c	span=9c42a7a8374ee2de	duration=0.2ms
+2025-06-13T18:32:30.447+08:00	 info 	Got signal 2, shutting down...	caller=proc/shutdown.go:84
+2025-06-13T18:32:44.349+08:00	 info 	sql query: select `id`,`nickname`,`mobile`,`create_at`,`update_at` from `user` where `id` = 1 limit 1	trace=28b5956fefa6dc4f57fffe66d07c991a	span=5ae5a62be174b0d0	duration=51.7ms	caller=sqlx/stmt.go:274
+2025-06-13T18:32:44.392+08:00	 info 	[HTTP]  200  -  GET  /back/v1/user/info?userId=1 - 127.0.0.1:53354 - PostmanRuntime-ApipostRuntime/1.1.0	span=490bc8a5096d98b4	duration=466.6ms	caller=handler/loghandler.go:147	trace=28b5956fefa6dc4f57fffe66d07c991a
+2025-06-13T18:37:01.817+08:00	 info 	Got signal 2, shutting down...	caller=proc/shutdown.go:84
+2025-06-13T18:49:53.536+08:00	 info 	[HTTP]  200  -  GET  /back/v1/user/info?userId=1 - 127.0.0.1:60474 - PostmanRuntime-ApipostRuntime/1.1.0	duration=1.4ms	caller=handler/loghandler.go:147	trace=ff5d77a51b416fd58382111f5ff35437	span=47fa19ceb30fc212
+2025-06-13T18:49:58.281+08:00	 info 	[HTTP]  200  -  GET  /back/v1/user/info?userId=2 - 127.0.0.1:60598 - PostmanRuntime-ApipostRuntime/1.1.0	caller=handler/loghandler.go:147	trace=970d245249fc0ad455d4a137a810ce3a	span=34744cd8eaf8c73d	duration=1.5ms
+2025-06-13T18:54:18.030+08:00	 info 	Got signal 2, shutting down...	caller=proc/shutdown.go:84

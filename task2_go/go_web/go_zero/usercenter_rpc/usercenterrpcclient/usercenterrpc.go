@@ -2,7 +2,7 @@
 // goctl 1.8.3
 // Source: usercenter_rpc.proto
 
-package usercenterrpcclient
+package usercenterRpcClient
 
 import (
 	"context"
@@ -14,11 +14,11 @@ import (
 )
 
 type (
-	Request  = usercenter_rpc.Request
-	Response = usercenter_rpc.Response
+	GetUserInfoReq  = usercenter_rpc.GetUserInfoReq
+	GetUserInfoResp = usercenter_rpc.GetUserInfoResp
 
 	UsercenterRpc interface {
-		Ping(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
+		GetUserInfo(ctx context.Context, in *GetUserInfoReq, opts ...grpc.CallOption) (*GetUserInfoResp, error)
 	}
 
 	defaultUsercenterRpc struct {
@@ -32,7 +32,7 @@ func NewUsercenterRpc(cli zrpc.Client) UsercenterRpc {
 	}
 }
 
-func (m *defaultUsercenterRpc) Ping(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error) {
+func (m *defaultUsercenterRpc) GetUserInfo(ctx context.Context, in *GetUserInfoReq, opts ...grpc.CallOption) (*GetUserInfoResp, error) {
 	client := usercenter_rpc.NewUsercenterRpcClient(m.cli.Conn())
-	return client.Ping(ctx, in, opts...)
+	return client.GetUserInfo(ctx, in, opts...)
 }

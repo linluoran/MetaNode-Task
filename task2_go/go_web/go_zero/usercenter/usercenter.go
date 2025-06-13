@@ -3,8 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-	"usercenter/internal/middleware"
-
 	"usercenter/internal/config"
 	"usercenter/internal/handler"
 	"usercenter/internal/svc"
@@ -22,7 +20,7 @@ func main() {
 	conf.MustLoad(*configFile, &c, conf.UseEnv())
 
 	server := rest.MustNewServer(c.RestConf)
-	server.Use(middleware.NewSetUidToCtxMiddleware().Handle)
+	//server.Use(middleware.NewSetUidToCtxMiddleware().Handle)
 	defer server.Stop()
 
 	ctx := svc.NewServiceContext(c)

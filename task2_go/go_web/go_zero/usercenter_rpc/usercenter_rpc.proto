@@ -1,16 +1,22 @@
+// usercenter_rpc.proto
 syntax = "proto3";
 
-package protobuf;
-option go_package="./protobuf";
+package usercenter_rpc;
+// go 包名 必须加 ./
+option go_package = "./usercenter_rpc";
 
-message Request {
-  string ping = 1;
+message GetUserInfoReq {
+  int64 id = 1;
 }
 
-message Response {
-  string pong = 1;
+message GetUserInfoResp {
+  int64 id = 1;
+  string nickname = 2;
 }
 
-service Usercenter_rpc {
-  rpc Ping(Request) returns(Response);
+// 根据 Usercenter_rpc 直接生成了 usercenterrpc.go
+// 就是生成了一个客户端 通过调用方法可以直接和 server 交互
+// internal/server/usercenterrpcserver.go
+service  Usercenter_rpc {
+  rpc GetUserInfo(GetUserInfoReq) returns(GetUserInfoResp);
 }
