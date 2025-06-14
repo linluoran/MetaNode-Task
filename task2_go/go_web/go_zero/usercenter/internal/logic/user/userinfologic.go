@@ -3,8 +3,8 @@ package user
 import (
 	"context"
 	"errors"
+	"github.com/linluoran/common_rpc/usercenter_rpc"
 	"net/http"
-	"usercenter_rpc/usercenter_rpc"
 
 	"usercenter/internal/svc"
 	"usercenter/internal/types"

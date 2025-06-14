@@ -44,3 +44,11 @@
 2025-06-13T18:53:32.483+08:00	 stat 	(api) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
 2025-06-13T18:53:53.536+08:00	 stat 	(usercenter-api) - qps: 0.0/s, drops: 0, avg time: 0.0ms, med: 0.0ms, 90th: 0.0ms, 99th: 0.0ms, 99.9th: 0.0ms	caller=stat/metrics.go:210
 2025-06-13T18:54:19.031+08:00	 stat 	(usercenter-api) - qps: 0.0/s, drops: 0, avg time: 0.0ms, med: 0.0ms, 90th: 0.0ms, 99th: 0.0ms, 99.9th: 0.0ms	caller=stat/metrics.go:210
+2025-06-14T16:15:27.679+08:00	 stat 	CPU: 0m, MEMORY: Alloc=3.2Mi, TotalAlloc=5.2Mi, Sys=18.1Mi, NumGC=3	caller=stat/usage.go:61
+2025-06-14T16:15:27.749+08:00	 stat 	(api) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2025-06-14T16:16:27.671+08:00	 stat 	CPU: 0m, MEMORY: Alloc=3.3Mi, TotalAlloc=5.3Mi, Sys=18.1Mi, NumGC=3	caller=stat/usage.go:61
+2025-06-14T16:16:27.746+08:00	 stat 	(api) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2025-06-14T16:17:00.000+08:00	 stat 	p2c - conn: 192.168.31.44:8080, load: 1873, reqs: 1	caller=p2c/p2c.go:195
+2025-06-14T16:17:10.368+08:00	 stat 	(usercenter-api) - qps: 0.0/s, drops: 0, avg time: 10.0ms, med: 10.7ms, 90th: 10.7ms, 99th: 10.7ms, 99.9th: 10.7ms	caller=stat/metrics.go:210
+2025-06-14T17:52:13.858+08:00	 stat 	p2c - conn: 192.168.31.44:8080, load: 3827, reqs: 1	caller=p2c/p2c.go:195
+2025-06-14T17:52:57.124+08:00	 stat 	(usercenter-api) - qps: 0.0/s, drops: 0, avg time: 8.5ms, med: 15.1ms, 90th: 15.1ms, 99th: 15.1ms, 99.9th: 15.1ms	caller=stat/metrics.go:210

@@ -51,3 +51,8 @@
 2025-06-13T18:49:53.536+08:00	 info 	[HTTP]  200  -  GET  /back/v1/user/info?userId=1 - 127.0.0.1:60474 - PostmanRuntime-ApipostRuntime/1.1.0	duration=1.4ms	caller=handler/loghandler.go:147	trace=ff5d77a51b416fd58382111f5ff35437	span=47fa19ceb30fc212
 2025-06-13T18:49:58.281+08:00	 info 	[HTTP]  200  -  GET  /back/v1/user/info?userId=2 - 127.0.0.1:60598 - PostmanRuntime-ApipostRuntime/1.1.0	caller=handler/loghandler.go:147	trace=970d245249fc0ad455d4a137a810ce3a	span=34744cd8eaf8c73d	duration=1.5ms
 2025-06-13T18:54:18.030+08:00	 info 	Got signal 2, shutting down...	caller=proc/shutdown.go:84
+2025-06-14T16:17:00.002+08:00	 info 	[HTTP]  200  -  GET  /back/v1/user/info?userId=2 - 127.0.0.1:53864 - PostmanRuntime-ApipostRuntime/1.1.0	duration=12.7ms	caller=handler/loghandler.go:147	trace=14c50412f9ca5f8ae655c79cd8b73d5b	span=80211a4254a2750d
+2025-06-14T16:17:09.367+08:00	 info 	Got signal 2, shutting down...	caller=proc/shutdown.go:84
+2025-06-14T17:52:13.858+08:00	 info 	[HTTP]  200  -  GET  /back/v1/user/info?userId=2 - 127.0.0.1:61189 - PostmanRuntime-ApipostRuntime/1.1.0	duration=15.1ms	caller=handler/loghandler.go:147	trace=488fb7887b6a969d2d4ffbf42c4eb231	span=98605c59e1c564ee
+2025-06-14T17:52:20.150+08:00	 info 	[HTTP]  200  -  GET  /back/v1/user/info?userId=2 - 127.0.0.1:61195 - PostmanRuntime-ApipostRuntime/1.1.0	trace=c61738b93159862655177a4f3efb7f85	span=a04972198cc4f73e	duration=3.0ms	caller=handler/loghandler.go:147
+2025-06-14T17:52:56.122+08:00	 info 	Got signal 2, shutting down...	caller=proc/shutdown.go:84

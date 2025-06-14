@@ -7,3 +7,5 @@
 2025-06-13T18:36:59.452+08:00	 error 	bad resolver state	caller=internal/discovbuilder.go:35
 2025-06-13T18:54:18.033+08:00	 error 	bad resolver state	caller=internal/discovbuilder.go:35
 2025-06-13T18:54:23.854+08:00	 error 	bad resolver state	caller=internal/discovbuilder.go:35
+2025-06-14T16:13:51.538+08:00	 error 	bad resolver state	caller=internal/discovbuilder.go:35
+2025-06-14T16:17:09.371+08:00	 error 	bad resolver state	caller=internal/discovbuilder.go:35
