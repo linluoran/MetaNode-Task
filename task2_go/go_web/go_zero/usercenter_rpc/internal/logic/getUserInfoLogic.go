@@ -6,6 +6,7 @@ import (
 	"usercenter_rpc/internal/svc"
 	"usercenter_rpc/usercenter_rpc"
 
+	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -24,17 +25,15 @@ func NewGetUserInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUs
 }
 
 func (l *GetUserInfoLogic) GetUserInfo(in *usercenter_rpc.GetUserInfoReq) (*usercenter_rpc.GetUserInfoResp, error) {
-	m := map[int64]string{
-		1: "张三",
-		2: "李四",
-		3: "王五",
+
+	var userModelTmp usercenter_rpc.GetUserInfoResp
+	user, _ := l.svcCtx.UserModel.FindOne(l.ctx, in.Id)
+
+	// 这个包博主推荐 前提是类型和字段名必须一致
+	err := copier.Copy(&userModelTmp, user)
+	if err != nil {
+		return nil, err
 	}
-	nickname := "unknown"
-	if name, ok := m[in.Id]; ok {
-		nickname = name
-	}
-	return &usercenter_rpc.GetUserInfoResp{
-		Id:       in.Id,
-		Nickname: nickname,
-	}, nil
+
+	return &userModelTmp, nil
 }

@@ -1,18 +1,17 @@
-Name: usercenter-api
+Name: article-api
 Host: 0.0.0.0
 Port: 8888
 
-# 增加ETCD 配置
+# 增加 RPC 直连配置
 UserRpcConf:
-  Etcd:
-    Hosts:
-      - 127.0.0.1:2379
-    key: usercenterrpc.rpc
+  Endpoints:
+    - 127.0.0.1:8080
+  NonBlock: true
 
 
 # 日志配置
 Log:
-  ServiceName: usercenter-api
+  ServiceName: article-api
   Mode: file
   Path: logs
   Encoding: plain

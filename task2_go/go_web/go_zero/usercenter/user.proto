@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/any.proto";
+
+package uc_proto;
+option go_package = "./uc_proto";
+
+message GetUserInfoReq {
+  int64 id = 1;
+  google.protobuf.Timestamp create_time = 2;
+}
+
+message GetUserInfoResp {
+  int64 id = 1;
+  string nickname = 2;
+  google.protobuf.Any data = 3;
+}
+
+service UserCenter {
+  rpc GetUserInfo(GetUserInfoReq) returns (GetUserInfoResp);
+}
