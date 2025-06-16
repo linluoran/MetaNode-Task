@@ -1,1 +1,0 @@
-2025-06-13T18:32:44.123+08:00	 slow 	[REDIS] slowcall on executing: get cache:gozero:user:id:1	duration=196.8ms	caller=redis/durationhook.go:152	trace=28b5956fefa6dc4f57fffe66d07c991a	span=342e8cada1e02229
