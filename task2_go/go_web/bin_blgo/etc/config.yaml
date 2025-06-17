@@ -8,7 +8,7 @@ Mysql:
   Password: "sc123456"
   Host: "42.194.226.141"
   Port: "3306"
-  DBname: "gorm"
+  DBname: "gozero"
   Timeout: "10s"
   MaxOpenConns: 100    # 最大连接数
   MaxIdleConns: 10     # 空闲连接数

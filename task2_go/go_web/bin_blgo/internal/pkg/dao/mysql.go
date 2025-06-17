@@ -4,16 +4,16 @@ import (
 	"bin_blog/internal/config"
 	"bin_blog/internal/model"
 	"fmt"
-	"github.com/sirupsen/logrus"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
+	"log"
 	"time"
 )
 
 var DB *gorm.DB
 
-func init() {
+func InitMysql() {
 	mysqConf := config.GlobalConfig.Mysql
 
 	dsn := fmt.Sprintf(
@@ -30,12 +30,12 @@ func init() {
 		},
 	})
 	if err != nil {
-		logrus.Fatalf("failed to connect database: %v", err)
+		log.Fatalf("failed to connect database: %v", err)
 	}
 
 	sqlDB, err := db.DB()
 	if err != nil {
-		logrus.Fatalf("failed to get sql.DB: %v", err)
+		log.Fatalf("failed to get sql.DB: %v", err)
 	}
 
 	// 配置连接池
@@ -45,12 +45,12 @@ func init() {
 	sqlDB.SetConnMaxLifetime(duration)
 
 	// 迁移数据库
-	if err = DB.AutoMigrate(
+	if err = db.AutoMigrate(
 		&model.User{},
 		&model.Post{},
 		&model.Comment{},
 	); err != nil {
-		logrus.Fatalf("failed to auto migrate: %v", err)
+		log.Fatalf("failed to auto migrate: %v", err)
 	}
 
 	DB = db

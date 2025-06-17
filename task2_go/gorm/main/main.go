@@ -202,7 +202,7 @@ func gorm4() {
 	//		books(title, author, price)
 	//	VALUES (:title, :author, :price)`, insertBooks)
 	//if insertErr != nil {
-	//	log.Fatal(insertErr)
+	//	logger.Fatal(insertErr)
 	//}
 	//fmt.Println(res.RowsAffected())
 
