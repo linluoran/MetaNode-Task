@@ -1,14 +1,12 @@
 package config
 
 import (
-	"fmt"
-	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/viper"
 )
 
 var (
 	GlobalConfig *BaseConfig
-	configPath   = "./config/config.yaml"
+	configPath   = "etc/config.yaml"
 )
 
 type BaseConfig struct {
@@ -22,8 +20,8 @@ type BaseConfig struct {
 type MysqlConfig struct {
 	UserName        string `mapstructure:"Username"`
 	Password        string `mapstructure:"Password"`
-	Host            string `mapstructure:"host"`
-	Port            string `mapstructure:"Host"`
+	Host            string `mapstructure:"Host"`
+	Port            string `mapstructure:"Port"`
 	DBName          string `mapstructure:"DBName"`
 	Timeout         string `mapstructure:"Timeout"`
 	DSN             string `mapstructure:"DSN"`
@@ -32,7 +30,8 @@ type MysqlConfig struct {
 	ConnMaxLifetime string `mapstructure:"ConnMaxLifetime"`
 }
 
-func LoadConfig() {
+func LoadConfig() error {
+	GlobalConfig = &BaseConfig{}
 	viper.SetConfigFile(configPath)
 	viper.SetConfigType("yaml")
 	viper.AddConfigPath(".")
@@ -42,16 +41,11 @@ func LoadConfig() {
 
 	// 读配置
 	if err := viper.ReadInConfig(); err != nil {
-		panic(err)
+		return err
 	}
 
-	// 实时监控配置变化
-	v.WatchConfig()
-	v.OnConfigChange(func(e fsnotify.Event) {
-		fmt.Println("config file changed:", e.Name)
-		// 热更新配置
-		if err := v.Unmarshal(Global); err != nil {
-			panic(err)
-		}
-	})
+	if err := viper.Unmarshal(&GlobalConfig); err != nil {
+		return err
+	}
+	return nil
 }

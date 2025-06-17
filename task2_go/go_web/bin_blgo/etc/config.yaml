@@ -3,8 +3,6 @@ Env: "dev"
 Host: 127.0.0.1
 Port: 8080
 
-
-
 Mysql:
   Username: "sc"
   Password: "sc123456"
@@ -15,6 +13,4 @@ Mysql:
   MaxOpenConns: 100    # 最大连接数
   MaxIdleConns: 10     # 空闲连接数
   ConnMaxLifetime: 30m # 连接最大存活时间
-
-
 
