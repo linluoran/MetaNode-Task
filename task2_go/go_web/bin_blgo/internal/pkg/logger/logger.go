@@ -2,6 +2,7 @@ package logger
 
 import (
 	"bin_blog/internal/config"
+	"github.com/gin-gonic/gin"
 	"github.com/natefinch/lumberjack"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -45,4 +46,29 @@ func InitLogger() {
 
 	// 替换全局 logger
 	zap.ReplaceGlobals(Log)
+}
+
+func ZapLogger() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		start := time.Now()
+		p := c.Request.URL.Path
+		query := c.Request.URL.RawQuery
+
+		// 处理请求
+		c.Next()
+
+		duration := time.Since(start)
+
+		// 记录日志
+		zap.L().Info("HTTP Request",
+			zap.Int("status", c.Writer.Status()),
+			zap.String("method", c.Request.Method),
+			zap.String("path", p),
+			zap.String("query", query),
+			zap.String("ip", c.ClientIP()),
+			zap.String("user-agent", c.Request.UserAgent()),
+			zap.Duration("duration", duration),
+			zap.String("errors", c.Errors.ByType(gin.ErrorTypePrivate).String()),
+		)
+	}
 }

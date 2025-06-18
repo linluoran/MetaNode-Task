@@ -2,31 +2,28 @@ package middleware
 
 import (
 	"github.com/gin-gonic/gin"
-	"go.uber.org/zap"
-	"time"
+	"github.com/golang-jwt/jwt/v5"
 )
 
-func ZapLogger() gin.HandlerFunc {
+func JWTAuthMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		start := time.Now()
-		path := c.Request.URL.Path
-		query := c.Request.URL.RawQuery
+		// 1. 从 Header 获取 token
+		tokenString := c.GetHeader("Authorization")
+		if tokenString == "" {
+			c.AbortWithStatusJSON(401, gin.H{"error": "未提供认证令牌"})
+			return
+		}
 
-		// 处理请求
+		// 2. 解析并验证 JWT
+		token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+			return []byte("你的密钥"), nil // 替换成你的实际密钥
+		})
+
+		if err != nil || !token.Valid {
+			c.AbortWithStatusJSON(401, gin.H{"error": "无效令牌"})
+			return
+		}
+
 		c.Next()
-
-		duration := time.Since(start)
-
-		// 记录日志
-		zap.L().Info("HTTP Request",
-			zap.Int("status", c.Writer.Status()),
-			zap.String("method", c.Request.Method),
-			zap.String("path", path),
-			zap.String("query", query),
-			zap.String("ip", c.ClientIP()),
-			zap.String("user-agent", c.Request.UserAgent()),
-			zap.Duration("duration", duration),
-			zap.String("errors", c.Errors.ByType(gin.ErrorTypePrivate).String()),
-		)
 	}
 }

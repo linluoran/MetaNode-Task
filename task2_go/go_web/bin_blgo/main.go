@@ -2,9 +2,9 @@ package main
 
 import (
 	"bin_blog/internal/config"
-	"bin_blog/internal/middleware"
 	"bin_blog/internal/pkg/dao"
 	"bin_blog/internal/pkg/logger"
+	"bin_blog/internal/routers"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
@@ -17,6 +17,7 @@ func main() {
 		panic(err)
 	}
 
+	// 初始化 zap
 	logger.InitLogger()
 	defer func(Log *zap.Logger) {
 		err = Log.Sync()
@@ -25,6 +26,7 @@ func main() {
 		}
 	}(logger.Log)
 
+	// 初始化 Mysql
 	dao.InitMysql()
 
 	// 设置生产模式
@@ -34,7 +36,10 @@ func main() {
 	}
 
 	router := gin.New()
-	router.Use(middleware.ZapLogger(), gin.Recovery())
+	router.Use(logger.ZapLogger(), gin.Recovery())
+
+	// 初始化路由
+	routers.InitRouter(router)
 
 	err = router.Run(fmt.Sprintf(
 		"%s:%s",
