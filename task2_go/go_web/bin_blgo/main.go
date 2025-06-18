@@ -2,26 +2,29 @@ package main
 
 import (
 	"bin_blog/internal/config"
+	"bin_blog/internal/middleware"
 	"bin_blog/internal/pkg/dao"
+	"bin_blog/internal/pkg/logger"
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/zeromicro/go-zero/core/logx"
+	"go.uber.org/zap"
 )
 
 func main() {
-
-	logx.MustSetup(logx.LogConf{
-		Mode:     "file",   // 文件模式（非控制台）
-		Path:     "./logs", // 日志目录
-		Level:    "info",   // 记录 Info 及以上级别
-		Encoding: "plain",  // 纯文本格式（无 JSON 冗余）
-	})
-
 	// 加载配置
 	err := config.LoadConfig()
 	if err != nil {
-		logx.Error(err)
+		panic(err)
 	}
+
+	logger.InitLogger()
+	defer func(Log *zap.Logger) {
+		err = Log.Sync()
+		if err != nil {
+			panic(err)
+		}
+	}(logger.Log)
+
 	dao.InitMysql()
 
 	// 设置生产模式
@@ -31,7 +34,7 @@ func main() {
 	}
 
 	router := gin.New()
-	router.Use(gin.Recovery())
+	router.Use(middleware.ZapLogger(), gin.Recovery())
 
 	err = router.Run(fmt.Sprintf(
 		"%s:%s",
@@ -40,7 +43,6 @@ func main() {
 	))
 
 	if err != nil {
-		logx.Error(err)
+		panic(err)
 	}
-	logx.Error("用户登录成功", "id=1001")
 }

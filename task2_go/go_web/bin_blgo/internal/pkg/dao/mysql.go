@@ -2,7 +2,6 @@ package dao
 
 import (
 	"bin_blog/internal/config"
-	"bin_blog/internal/model"
 	"fmt"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -45,13 +44,13 @@ func InitMysql() {
 	sqlDB.SetConnMaxLifetime(duration)
 
 	// 迁移数据库
-	if err = db.AutoMigrate(
-		&model.User{},
-		&model.Post{},
-		&model.Comment{},
-	); err != nil {
-		log.Fatalf("failed to auto migrate: %v", err)
-	}
+	//if err = db.AutoMigrate(
+	//	&model.User{},
+	//	&model.Post{},
+	//	&model.Comment{},
+	//); err != nil {
+	//	log.Fatalf("failed to auto migrate: %v", err)
+	//}
 
 	DB = db
 }

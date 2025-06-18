@@ -10,11 +10,12 @@ var (
 )
 
 type BaseConfig struct {
-	Name  string      `mapstructure:"Name"`
-	Env   string      `mapstructure:"Env"`
-	Host  string      `mapstructure:"Host"`
-	Port  string      `mapstructure:"Port"`
-	Mysql MysqlConfig `mapstructure:"Mysql"`
+	Name  string       `mapstructure:"Name"`
+	Env   string       `mapstructure:"Env"`
+	Host  string       `mapstructure:"Host"`
+	Port  string       `mapstructure:"Port"`
+	Mysql MysqlConfig  `mapstructure:"Mysql"`
+	Log   LoggerConfig `mapstructure:"Log"`
 }
 
 type MysqlConfig struct {
@@ -28,6 +29,14 @@ type MysqlConfig struct {
 	MaxOpenConns    int    `mapstructure:"MaxOpenConns"`
 	MaxIdleConns    int    `mapstructure:"MaxIdleConns"`
 	ConnMaxLifetime string `mapstructure:"ConnMaxLifetime"`
+}
+
+type LoggerConfig struct {
+	LogPath    string `mapstructure:"LogPath"`
+	MaxSize    int    `mapstructure:"MaxSize"`
+	MaxBackups int    `mapstructure:"MaxBackups"`
+	MaxAge     int    `mapstructure:"MaxAge"`
+	Compress   bool   `mapstructure:"Compress"`
 }
 
 func LoadConfig() error {
