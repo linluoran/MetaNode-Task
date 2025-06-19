@@ -1,4 +1,4 @@
-module bin_blog
+module gin_blog
 
 go 1.24.3
 

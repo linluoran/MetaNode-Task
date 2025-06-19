@@ -1,7 +1,8 @@
-Name: "bin blog"
+Name: "gin blog"
 Env: "dev"
 Host: 127.0.0.1
 Port: 8080
+
 
 Mysql:
   Username: "sc"
@@ -20,3 +21,8 @@ Log:
   MaxBackups: 5           # 保留的旧日志文件数
   MaxAge: 7              # 日志保留天数
   Compress: true           # 是否压缩旧日志
+
+Jwt:
+  Secret: "jGudRl2qx0zAbckdK1unsq8vxSy1riQ1HkVTn59qois="
+  TokenExpire: 24
+  Issuer: "gin blog"

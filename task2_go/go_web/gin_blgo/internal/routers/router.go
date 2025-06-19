@@ -1,7 +1,7 @@
 package routers
 
 import (
-	"bin_blog/internal/middleware"
+	"gin_blog/internal/middleware"
 	"github.com/gin-gonic/gin"
 )
 
@@ -14,13 +14,13 @@ func InitRouter(router *gin.Engine) {
 	apiVersion := router.Group("/api/v1")
 	{
 		// 公开路由组
-		publicGroup = apiVersion.Group("/")
+		publicGroup = apiVersion.Group("")
 
 		// 受保护路由组（需要JWT）
-		privateGroup = apiVersion.Group("/", middleware.JWTAuthMiddleware())
+		privateGroup = apiVersion.Group("", middleware.JWTAuthMiddleware())
 	}
 
 	RegisterUserRoutes()
 	RegisterPostRoutes()
-	RegisterCommentRoutes()
+	//RegisterCommentRoutes()
 }

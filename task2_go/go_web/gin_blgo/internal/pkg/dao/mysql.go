@@ -1,8 +1,8 @@
 package dao
 
 import (
-	"bin_blog/internal/config"
 	"fmt"
+	"gin_blog/internal/config"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"

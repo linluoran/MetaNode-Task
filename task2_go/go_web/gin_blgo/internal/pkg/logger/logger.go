@@ -1,7 +1,7 @@
 package logger
 
 import (
-	"bin_blog/internal/config"
+	"gin_blog/internal/config"
 	"github.com/gin-gonic/gin"
 	"github.com/natefinch/lumberjack"
 	"go.uber.org/zap"

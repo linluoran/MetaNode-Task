@@ -1,11 +1,12 @@
 package main
 
 import (
-	"bin_blog/internal/config"
-	"bin_blog/internal/pkg/dao"
-	"bin_blog/internal/pkg/logger"
-	"bin_blog/internal/routers"
 	"fmt"
+	"gin_blog/internal/config"
+	"gin_blog/internal/middleware"
+	"gin_blog/internal/pkg/dao"
+	"gin_blog/internal/pkg/logger"
+	"gin_blog/internal/routers"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -36,7 +37,11 @@ func main() {
 	}
 
 	router := gin.New()
-	router.Use(logger.ZapLogger(), gin.Recovery())
+	router.Use(
+		logger.ZapLogger(),
+		gin.Recovery(),
+		middleware.CustomRecoveryMiddleware(),
+	)
 
 	// 初始化路由
 	routers.InitRouter(router)
@@ -48,6 +53,6 @@ func main() {
 	))
 
 	if err != nil {
-		panic(err)
+		logger.Log.Error("项目初始化失败.", zap.Error(err))
 	}
 }
