@@ -58,7 +58,6 @@ func JWTAuthMiddleware() gin.HandlerFunc {
 			return
 		}
 
-		fmt.Println(claims.Issuer)
 		// 6. 存储到上下文
 		c.Set("userID", claims.ID)
 		c.Set("username", claims.Username)

@@ -81,12 +81,16 @@ func UserLoginHandler(c *gin.Context) {
 		return
 	}
 
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"id":       storedUser.ID,
-		"username": storedUser.Username,
-		"exp":      time.Now().Add(time.Hour * config.GlobalConfig.Jwt.TokenExpire).Unix(),
-		"iss":      config.GlobalConfig.Jwt.Issuer,
-	})
+	token := jwt.NewWithClaims(
+		jwt.SigningMethodHS256,
+		&types.CustomClaims{
+			ID:       storedUser.ID,
+			Username: storedUser.Username,
+			RegisteredClaims: jwt.RegisteredClaims{
+				ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Hour * config.GlobalConfig.Jwt.TokenExpire)),
+				Issuer:    config.GlobalConfig.Jwt.Issuer,
+			}},
+	)
 
 	jwtToken, err := token.SignedString([]byte(config.GlobalConfig.Jwt.Secret))
 	if err != nil {

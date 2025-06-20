@@ -19,11 +19,16 @@ func PostCreateHandler(c *gin.Context) {
 	}
 
 	userID, _ := c.Get("userID")
+	uId, ok := userID.(uint)
+	if !ok {
+		types.ErrorRes(c, 0, "用户信息获取错误")
+		return
+	}
 	err := dao.DB.Create(
 		&model.Post{
 			Title:   post.Title,
 			Content: post.Content,
-			UserID:  userID.(uint),
+			UserID:  uId,
 		}).Error
 	if err != nil {
 		types.ErrorRes(c, 0, fmt.Sprintf("创建文章失败: %s", err.Error()))
