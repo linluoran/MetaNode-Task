@@ -46,6 +46,39 @@ func PostListHandler(c *gin.Context) {
 		logger.Log.Error("参数传递错误: ", zap.Any("err", err))
 		return
 	}
+	if post.PageSize == 0 {
+		post.PageSize = 10
+	}
+	if post.PageNum == 0 {
+		post.PageNum = 1
+	}
+	fmt.Println(post)
+
+	var posts []model.Post
+	if post.Title != "" {
+
+	}
+	err := dao.DB.
+		Find(&posts).
+		Limit(post.PageSize).
+		Offset((post.PageNum - 1) * post.PageSize).
+		Scan(&posts).Error
+	if err != nil {
+		types.ErrorRes(c, 0, fmt.Sprintf("文章查询失败: %s", err.Error()))
+		logger.Log.Error("数据库错误: ", zap.Any("err", err))
+		return
+	}
+
+	types.SuccessRes(c, "创建文章成功.", posts)
+}
+
+func PostDetailHandler(c *gin.Context) {
+	var post types.PostListReq
+	if err := c.ShouldBind(&post); err != nil {
+		types.ErrorRes(c, 0, fmt.Sprintf("参数传递错误: %s", err.Error()))
+		logger.Log.Error("参数传递错误: ", zap.Any("err", err))
+		return
+	}
 
 	var posts []model.Post
 	err := dao.DB.

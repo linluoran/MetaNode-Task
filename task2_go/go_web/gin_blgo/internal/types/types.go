@@ -23,8 +23,8 @@ type (
 
 type (
 	ListReq struct {
-		PageSize int `form:"page_size" binding:"required,default=10, min=2,max=20"`
-		PageNum  int `form:"page_num" binding:"required,default=1, 10min=1"`
+		PageSize int `form:"page_size" binding:"omitempty,min=2,max=20"`
+		PageNum  int `form:"page_num" binding:"omitempty,min=1"`
 	}
 )
 type (
@@ -47,6 +47,7 @@ type (
 
 	PostListReq struct {
 		ListReq
+		Title string `form:"title" binding:"omitempty,min=1,max=20"`
 	}
 )
 
