@@ -5,9 +5,9 @@ Port: 8080
 
 
 Mysql:
-  Username: "sc"
-  Password: "sc123456"
-  Host: "42.194.226.141"
+  Username: "gin"
+  Password: "gin123456"
+  Host: "127.0.0.1"
   Port: "3306"
   DBname: "gozero"
   Timeout: "10s"

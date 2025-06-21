@@ -1,9 +1,11 @@
 package routers
 
-//func RegisterCommentRoutes() {
-//	privComment := privateGroup.Group("/comment")
-//	{
-//		privComment.POST("/register", handler.registerHandler)
-//		privComment.POST("/login", handler.loginHandler)
-//	}
-//}
+import "gin_blog/internal/handler"
+
+func RegisterCommentRoutes() {
+	privComment := privateGroup.Group("/comment")
+	{
+		privComment.POST("/create", handler.CommentCreateHandler)
+		privComment.POST("/list", handler.CommentListHandler)
+	}
+}

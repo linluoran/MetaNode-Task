@@ -22,5 +22,5 @@ func InitRouter(router *gin.Engine) {
 
 	RegisterUserRoutes()
 	RegisterPostRoutes()
-	//RegisterCommentRoutes()
+	RegisterCommentRoutes()
 }

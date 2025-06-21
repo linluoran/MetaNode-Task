@@ -3,6 +3,7 @@ package dao
 import (
 	"fmt"
 	"gin_blog/internal/config"
+	"gin_blog/internal/model"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -44,13 +45,13 @@ func InitMysql() {
 	sqlDB.SetConnMaxLifetime(duration)
 
 	// 迁移数据库
-	//if err = db.AutoMigrate(
-	//	&model.User{},
-	//	&model.Post{},
-	//	&model.Comment{},
-	//); err != nil {
-	//	log.Fatalf("failed to auto migrate: %v", err)
-	//}
+	if err = db.AutoMigrate(
+		&model.User{},
+		&model.Post{},
+		&model.Comment{},
+	); err != nil {
+		log.Fatalf("failed to auto migrate: %v", err)
+	}
 
 	DB = db
 }

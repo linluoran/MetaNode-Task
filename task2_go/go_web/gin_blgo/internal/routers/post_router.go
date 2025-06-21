@@ -8,6 +8,8 @@ func RegisterPostRoutes() {
 		privPost.POST("/create", handler.PostCreateHandler)
 		privPost.POST("/list", handler.PostListHandler)
 		privPost.POST("/detail", handler.PostDetailHandler)
+		privPost.POST("/update", handler.PostUpdateHandler)
+		privPost.POST("/delete", handler.PostDeleteHandler)
 	}
 
 }
