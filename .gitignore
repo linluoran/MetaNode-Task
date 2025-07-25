@@ -27,3 +27,5 @@ go.work.sum
 .env
 .idea
 logs
+.deps
+.states
