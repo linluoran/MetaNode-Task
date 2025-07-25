@@ -10,11 +10,16 @@ contract  Voting{
         uint voteCount;
     }
 
-    // 候选人index => 候选人  
+    // 候选人索引 0,1,2 => 候选人  
     mapping(uint voteIndex => Candidate) public idToCandidate;
 
-    // 
+    // 是否投过票 不允许重复投票
+    mapping(addres voter => bool is voted) public voterToVoted
+    
+    // 投票函数
+    function vote (){}
 
 }
+
 
 
